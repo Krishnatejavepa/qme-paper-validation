@@ -1,0 +1,38 @@
+{
+  "sample": "identical pinned gnome_sample_ids.txt (seed=42, N=500), NO re-sampling",
+  "n_sample": 500,
+  "n_total_population": 554054,
+  "title_only_baseline": {
+    "flagged": 5,
+    "pct": 1.0,
+    "offline_family": 1,
+    "literature": 4,
+    "note": "hand-audited: 3/5 verified TP -> 0.6% floor"
+  },
+  "structure_db_cod": {
+    "exact_cod_matches": 0,
+    "pct": 0.0,
+    "new_vs_baseline": 0,
+    "unreachable_failopen": 0,
+    "error": 0,
+    "wilson95_lo_pct": 0.0,
+    "match_rule": "exact reduced-composition vs COD OPTIMADE (precision-first)",
+    "query_caps": "timeout=10s, max_pages=2, page_limit=100"
+  },
+  "combined": {
+    "flagged": 5,
+    "pct": 1.0,
+    "wilson95_lo_pct": 0.43,
+    "by_path_counts": {
+      "offline_family": 1,
+      "literature": 4,
+      "structure_db": 0
+    }
+  },
+  "before_after": {
+    "title_only_pct": 1.0,
+    "with_structure_db_pct": 1.0,
+    "delta_pp": 0.0
+  },
+  "elapsed_s_this_run": 1776.7
+}

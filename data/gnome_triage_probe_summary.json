@@ -1,0 +1,76 @@
+{
+  "probe": "GNoME triage-wedge (CREDIBLE\u00d7USEFUL) \u2014 evidence test",
+  "input": {
+    "n_carry_in": 495,
+    "source": "gnome_sample_results.csv (prior-art-absent subset of the pinned N=500, seed 42)",
+    "structures": "real GNoME-relaxed CIFs from public by_id.zip (keyed by MaterialId)"
+  },
+  "screens": {
+    "smact": "smact.screening.smact_validity (charge-neutral + Pauling; include_alloys=False)",
+    "oracle_stability": "oracle_predict (MACE-MP-0 v3, MP-210k heads): Ef<0.0 AND eah<0.15",
+    "polaron": "screen_polaron (battery-TM empirical Frohlich; only 'blocked' fails)"
+  },
+  "funnel_narrowing_4a": {
+    "N_input": 495,
+    "after_smact": 49,
+    "after_oracle_stability": 36,
+    "after_polaron_nonblocking": 35,
+    "survivors_pct_of_input": 7.1
+  },
+  "independent_rejects": {
+    "smact_charge_neutrality": 446,
+    "oracle_stability": 154,
+    "polaron_blocked": 1,
+    "oracle_reason_breakdown": {
+      "eah>=0.15": 145,
+      "Ef>=0_AND_eah>=0.15": 7,
+      "Ef>=0": 2
+    },
+    "polaron_mobility_breakdown": {
+      "intrinsic": 482,
+      "requires_nano": 7,
+      "requires_coating": 5,
+      "blocked": 1
+    }
+  },
+  "echo_test_4c": {
+    "gnome_label": "stable (all N \u2014 every row is in stable_materials_summary.csv)",
+    "oracle_agrees_stable": 341,
+    "oracle_agreement_rate_pct": 68.9,
+    "oracle_disputes_stable": 154,
+    "oracle_dispute_rate_pct": 31.1,
+    "rejected_by_smact_only_orthogonal": 305,
+    "rejected_by_polaron_only_orthogonal": 1,
+    "passes_all_three_qme_screens": 35,
+    "gnome_decomp_mean_when_oracle_disputes": -0.0389,
+    "gnome_decomp_mean_when_oracle_agrees": -0.0449,
+    "pearson_qme_eah_vs_gnome_decomp": 0.112
+  },
+  "sustainability_4b": {
+    "raw_input_N": {
+      "counts": {
+        "flagged_critical": 314,
+        "flagged_toxic": 104,
+        "flagged_radioactive": 75,
+        "favorable": 2
+      },
+      "favorable_pct": 0.4,
+      "flagged_radioactive_pct": 15.2,
+      "flagged_toxic_pct": 21.0,
+      "flagged_critical_pct": 63.4
+    },
+    "survivors": {
+      "counts": {
+        "flagged_critical": 23,
+        "flagged_radioactive": 7,
+        "flagged_toxic": 5
+      },
+      "favorable_pct": 0.0,
+      "flagged_radioactive_pct": 20.0,
+      "flagged_toxic_pct": 14.3,
+      "flagged_critical_pct": 65.7
+    }
+  },
+  "application_fit": "EXPLICIT STUB \u2014 not evaluated",
+  "elapsed_s": 18.1
+}

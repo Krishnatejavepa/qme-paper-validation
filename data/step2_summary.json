@@ -1,0 +1,81 @@
+{
+  "preregistration_commit_sha_short": "bd254c2",
+  "n_total_oos": 74,
+  "sanity_check": {
+    "raw_mae_reproduced": 0.5892,
+    "raw_mae_expected": 0.5892,
+    "raw_bias_reproduced": 0.4263,
+    "raw_bias_expected": 0.4263,
+    "raw_rmse": 0.7257,
+    "pass": true
+  },
+  "family_counts": {
+    "other": 38,
+    "polyanionic_phosphate": 26,
+    "layered_oxide": 9,
+    "NASICON": 1
+  },
+  "split_method": "leave_one_family_out",
+  "split_note": "LOFO across families with >=10 compounds: ['other', 'polyanionic_phosphate']. For each, hold the family out, learn the global mean signed error on the remaining compounds, apply it to the held-out family.",
+  "heldout_n": 64,
+  "failure_modes": {
+    "F1_family_bias_spread_threshold_V": 0.15,
+    "F1_observed_spread_V": 0.4419,
+    "F1_fired": true,
+    "F2_in_sample_violations": 0,
+    "F2_fired": false,
+    "F3_heldout_min_n": 20,
+    "F3_observed_heldout_n": 64,
+    "F3_fired": false,
+    "F4_mixed_sign_families": [
+      "+"
+    ],
+    "F4_fired": false,
+    "any_fired": true,
+    "fired_list": [
+      "F1"
+    ]
+  },
+  "per_family_diagnostic": {
+    "polyanionic_phosphate": {
+      "n": 26,
+      "bias": 0.20218846153846154,
+      "mae": 0.37526538461538456,
+      "sign": "+"
+    },
+    "other": {
+      "n": 38,
+      "bias": 0.6315552631578947,
+      "mae": 0.7749815789473683,
+      "sign": "+"
+    },
+    "layered_oxide": {
+      "n": 9,
+      "bias": 0.1896888888888889,
+      "mae": 0.4236,
+      "sign": "+"
+    },
+    "NASICON": {
+      "n": 1,
+      "bias": 0.5834,
+      "mae": 0.5834,
+      "sign": "+"
+    }
+  },
+  "primary_metric": {
+    "definition": "held-out MAE upper edge of 95% bootstrap CI (conservative)",
+    "value_V": 0.661,
+    "point_estimate_V": 0.5644,
+    "ci95_lo_V": 0.4722,
+    "ci95_med_V": 0.5635,
+    "ci95_hi_V": 0.661,
+    "rmse_V": 0.6819,
+    "residual_bias_V": 0.1101,
+    "bootstrap_n": 10000,
+    "bootstrap_seed": 42
+  },
+  "tier_at_primary_metric": "not screening-grade",
+  "verdict_string": "INVALIDATED by failure mode(s): F1 (see below)",
+  "caveat": "Reference voltages are MP `average_voltage`, DFT-computed (PBE/PBE+U), NOT experimental. Step 3 will replace with literature-experimental V_avg on the 28 mainstream subset, which may shift the verdict by up to ~0.15 V per F3 / revision-trigger criteria in the pre-registration.",
+  "na3v2po43_note": "Na3V2(PO4)3 is NOT in the OOS set. The audit's '2.90 V vs ~3.4 V exp' is a separate QME PBE+U DFT result and is out of scope here."
+}

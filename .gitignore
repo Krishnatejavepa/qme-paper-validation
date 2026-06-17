@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# OS / editor cruft
+.DS_Store
+*.swp
+*~
+
+# Regeneration targets (authoritative copies live under paper/).
+# Reruns of make_tables.py / fig*.py write here; keep git clean.
+/figures/*.pdf
+/tables/*.tex
+!/figures/.gitkeep
+!/tables/.gitkeep
+
+# Scratch / verification artifacts
+/tmp/
+qme-verify/
+
+# Excluded large binaries (not shipped; available from author on request)
+*.pth
+*.pt
+gnome_sample_results.csv
+gnome_triage_probe_results.csv
+
+# LaTeX intermediates (paper/ ships .tex/.bbl/.pdf only)
+*.aux
+*.out
+*.toc
+*.synctex.gz
+paper/*.log
+paper/*.blg
+
+# SQLite sidecars (never commit)
+*.db-wal
+*.db-shm
+*.db-journal

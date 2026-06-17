@@ -1,0 +1,19 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Krishna Teja Vepa
+
+This license covers the data, database, figures, and paper in this repository,
+that is the data/, db/, figures/, tables/, and paper/ directories. The code in
+scripts/ is licensed separately under the MIT license; see the LICENSE file.
+
+You are free to share and adapt this material for any purpose, including
+commercially, provided that you give appropriate credit by citing the
+associated paper (see the citation in README.md), link to the license, and
+indicate any changes. You may not apply legal terms or technological measures
+that restrict others from doing anything the license permits.
+
+The full legal text of CC BY 4.0 is at
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+The computed voltages in this repository are DFT (PBE+U) approximations, not
+experimental measurements. See the paper for the measured gap between the two.

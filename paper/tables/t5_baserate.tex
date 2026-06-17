@@ -1,0 +1,27 @@
+\begin{ruledtabular}
+\begin{tabular}{lr}
+Quantity & Value \\
+\colrule
+\multicolumn{2}{l}{\itshape Targeted earth-abundant Na space (substitution generator)} \\
+enumerated compositions & 390 \\
+SMACT-valid & 78 \\
+flagged already-published (lower bound)\footnotemark[1] & 55 (70.5\%) \\
+\quad via structural family & 52 \\
+\quad via COD exact composition & 20 \\
+\quad via named literature citation & 2 \\
+survivors (absent within coverage) & 23 \\
+\multicolumn{2}{l}{\itshape GNoME stable-materials release (pinned uniform sample)} \\
+population / sample & 554,054 / 500 \\
+flagged by title-level screen & 5 (1.0\%) \\
+hand-verified true positives\footnotemark[2] & 3/5 (floor 0.6\%) \\
+COD exact-composition matches & 0/500 \\
+prior-art-absent carried to funnel & 495 \\
+\quad after SMACT validity & 49 \\
+\quad after stability screen & 36 \\
+\quad after polaron screen (survivors) & 35 (7.1\%) \\
+stability disputes vs GNoME label\footnotemark[3] & 31.1\% \\
+\end{tabular}
+\end{ruledtabular}
+\footnotetext[1]{The prior-art layer only downgrades and two of its sources are stubs; flagged rates are lower bounds. Paths overlap.}
+\footnotetext[2]{Hand audit of every flagged hit.}
+\footnotetext[3]{Disagreement rate between the borrowed stability model and the GNoME label; a correctness claim for neither.}

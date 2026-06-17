@@ -1,0 +1,10 @@
+# Minimal pinned environment for the clean-room reproducible set:
+#   make_tables.py, fig1_parity.py, fig2_residuals.py, fig3_decomposition.py,
+#   consistency_check.py, step2_bias_corrected.py  (+ qme_style.py)
+# These are the ONLY third-party packages those scripts import; everything else
+# they use (csv, json, re, sqlite3, decimal, statistics, pathlib) is stdlib.
+# The three provenance scripts (s3b_litexp.py, d1_offset_analysis.py,
+# bib_verify.py) are NOT reproducible from a clean clone and are not covered.
+# Verified on CPython 3.13.
+numpy==2.4.6
+matplotlib==3.11.0

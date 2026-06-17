@@ -1,0 +1,42 @@
+{
+  "provenance": {
+    "dataset": "GNoME (Graph Networks for Materials Exploration), public release",
+    "citation": "Merchant, Batzner, Schoenholz, Aykol, Cheon, Cubuk, 'Scaling deep learning for materials discovery', Nature 624, 80-85 (2023), DOI 10.1038/s41586-023-06735-9",
+    "file": "gs://gdm_materials_discovery/gnome_data/stable_materials_summary.csv",
+    "https_mirror": "https://storage.googleapis.com/gdm_materials_discovery/gnome_data/stable_materials_summary.csv",
+    "file_last_modified": "2024-12-09 (HTTP Last-Modified)",
+    "file_bytes": 151452777,
+    "file_sha256": "c37bffb9dd6c51d38d259a2d340ecf796194729f656d474828512390db1ff0c9",
+    "note_expanded_set": "This is the EXPANDED release (materials within ~1 meV/atom of the convex hull, the Aug-2024 expansion to >520k), not the original 381k from the 2023 Nature paper. Used as-is, uncurated.",
+    "formula_column": "Reduced Formula",
+    "sampling": "uniform random, pandas .sample(n=500, random_state=42); NO filtering/cherry-picking",
+    "moat_version": "v2.6 composition-verified prior-art layer (src/prior_art.py, src/formula_identity.py)",
+    "moat_call": "prior_art.screen(formula=<Reduced Formula>, online=True)",
+    "online_sources": "OpenAlex (primary) -> Crossref (fallback); title-level composition match",
+    "throwaway_db": "/tmp/qme_gnome_demo_cache.db"
+  },
+  "n_total_population": 554054,
+  "n_sample": 500,
+  "flagged_prior_art": 5,
+  "flagged_fraction": 0.01,
+  "flagged_pct": 1.0,
+  "flagged_wilson95_lo_pct": 0.4,
+  "breakdown": {
+    "offline_structural_family": 1,
+    "literature_verified": 4,
+    "prior_art_absent_within_coverage": 495,
+    "needs_manual_review_unreachable": 0,
+    "unchecked_unparseable": 0,
+    "error": 0
+  },
+  "strict_floor": {
+    "desc": "drops literature hits whose only match is the weak element_set kind (conf 0.45)",
+    "flagged_strict": 5,
+    "flagged_strict_pct": 1.0,
+    "flagged_strict_wilson95_lo_pct": 0.4
+  },
+  "lit_match_kind_counts": {
+    "framework_variant": 4
+  },
+  "elapsed_s": 399.9
+}

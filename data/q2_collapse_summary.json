@@ -1,0 +1,16 @@
+{
+  "n_distinct_enumerated": 390,
+  "n_smact_valid_screened": 78,
+  "flagged_debunkable_as_known": 55,
+  "flagged_fraction": 0.705,
+  "flagged_pct": 70.5,
+  "by_path": {
+    "structural_family": 52,
+    "literature_named": 2,
+    "COD_exact_structure": 20
+  },
+  "any_source_unreachable_failopen": 0,
+  "survivors_not_debunkable": 23,
+  "caveat": "LOWER BOUND on saturation: layer DEBUNKS but never CERTIFIES (cleared pinned False; patents+ICSD are stubs). Survivors are 'novel-within-coverage', NOT verified-novel.",
+  "elapsed_s": 211.3
+}

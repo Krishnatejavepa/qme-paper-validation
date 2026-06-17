@@ -1,0 +1,109 @@
+{
+  "test": "Step 3b MACHINE-CURATED literature validation: GNN (active qme-v2.5-battery) vs experimental V_avg",
+  "curation": "MACHINE-CURATED 2026-06-09, pending operator spot-check",
+  "n_validated_rows": 9,
+  "n_predictable": 7,
+  "n_predicted": 7,
+  "n_excluded_no_mp_structure": 2,
+  "all_rows_held_out": true,
+  "blocks": {
+    "held_out_all": {
+      "label": "held-out, all tiers",
+      "n": 7,
+      "raw_MAE_V": 0.6938,
+      "raw_RMSE_V": 0.779,
+      "raw_bias_V": 0.3194,
+      "raw_MAE_boot95_V": [
+        0.4214,
+        0.9587
+      ],
+      "loocv_corrected_MAE_V": 0.7562,
+      "loocv_corrected_RMSE_V": 0.8289,
+      "loocv_corrected_MAE_boot95_V": [
+        0.515,
+        1.0168
+      ]
+    },
+    "held_out_no_tierC": {
+      "label": "held-out, Tier A/B only",
+      "n": 6,
+      "raw_MAE_V": 0.6682,
+      "raw_RMSE_V": 0.767,
+      "raw_bias_V": 0.2314,
+      "raw_MAE_boot95_V": [
+        0.37,
+        0.9772
+      ],
+      "loocv_corrected_MAE_V": 0.8018,
+      "loocv_corrected_RMSE_V": 0.8775,
+      "loocv_corrected_MAE_boot95_V": [
+        0.5131,
+        1.0919
+      ]
+    },
+    "phosphate_all": {
+      "label": "polyanionic_phosphate, all tiers",
+      "n": 4,
+      "raw_MAE_V": 0.6543,
+      "raw_RMSE_V": 0.6756,
+      "raw_bias_V": 0.0452,
+      "raw_MAE_boot95_V": [
+        0.4927,
+        0.816
+      ],
+      "loocv_corrected_MAE_V": 0.8724,
+      "loocv_corrected_RMSE_V": 0.8988,
+      "loocv_corrected_MAE_boot95_V": [
+        0.6569,
+        1.0879
+      ]
+    },
+    "phosphate_no_tierC": {
+      "label": "polyanionic_phosphate, Tier A/B only",
+      "n": 3,
+      "raw_MAE_V": 0.5899,
+      "raw_RMSE_V": 0.6076,
+      "raw_bias_V": -0.2223,
+      "raw_MAE_boot95_V": [
+        0.434,
+        0.7842
+      ],
+      "loocv_corrected_MAE_V": 0.7737,
+      "loocv_corrected_RMSE_V": 0.8482,
+      "loocv_corrected_MAE_boot95_V": [
+        0.3176,
+        1.1605
+      ]
+    }
+  },
+  "voltage_dependence_pearson_r_signedErr_vs_Vlit": -0.939,
+  "three_way_decomposition": [
+    {
+      "mp_id": "mp-562796",
+      "formula": "NaCoPO4",
+      "polymorph": "ABW-type zeolitic P21/n (Co tetrahedral)",
+      "v_pred": 3.7158,
+      "v_mp": 3.961,
+      "v_lit": 4.5,
+      "pred_minus_mp": -0.2452,
+      "mp_minus_lit": -0.539,
+      "pred_minus_lit": -0.7842,
+      "repro_prior_pred": 3.727,
+      "repro_delta": -0.0112
+    },
+    {
+      "mp_id": "mp-683773",
+      "formula": "NaCoPO4",
+      "polymorph": "beta P65 hexagonal 'blue' (Co tetrahedral)",
+      "v_pred": 3.866,
+      "v_mp": 3.7625,
+      "v_lit": 4.3,
+      "pred_minus_mp": 0.1035,
+      "mp_minus_lit": -0.5375,
+      "pred_minus_lit": -0.434,
+      "repro_prior_pred": 3.9209,
+      "repro_delta": -0.0549
+    }
+  ],
+  "step2_family_bias_context_V": 0.2022
+}

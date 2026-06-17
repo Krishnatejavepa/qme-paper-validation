@@ -1,0 +1,20 @@
+{
+  "test": "OUT-OF-SAMPLE Na voltage (model never trained on these); ref = MP average_voltage",
+  "n_out_of_sample_candidates": 74,
+  "n_fetched": 74,
+  "n_predicted": 74,
+  "n_failed": 0,
+  "MAE_V": 0.5892,
+  "RMSE_V": 0.7257,
+  "median_abs_err_V": 0.5371,
+  "max_abs_err_V": 1.7302,
+  "mean_signed_err_bias_V": 0.4263,
+  "frac_within_0.2V": 0.23,
+  "frac_within_0.3V": 0.351,
+  "frac_within_0.5V": 0.486,
+  "ref_range_V": [
+    3.01,
+    4.73
+  ],
+  "in_sample_MAE_for_comparison_V": 1.52
+}
