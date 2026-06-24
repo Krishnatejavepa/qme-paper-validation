@@ -2,7 +2,7 @@
 
 Code and data for the paper "Computational references are not experiments:
 pre-registered validation of machine-learned sodium-cathode voltages"
-(K. T. Vepa). arXiv: ARXIV_ID_PENDING.
+(K. T. Vepa). arXiv: https://arxiv.org/abs/2606.23725
 
 ## Summary
 
