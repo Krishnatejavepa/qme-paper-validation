@@ -1,6 +1,6 @@
 %% ============================================================================
 %% Computational references are not experiments -- arXiv preprint
-%% Branch: paper/arxiv-final-2026-06-12 (Branch B: D1 verdict pending, Sec. VI stub)
+%% Branch: paper/arxiv-final-2026-06-12 (Branch B: D1 verdict inserted in Results C)
 %% Every number maps to CLAIMS_MAP.md (claim -> artifact -> commit SHA).
 %% Style contract: declarative prose, no bullets in body, banned-vocab list
 %% enforced (Phase 2 of the assembly contract).
@@ -20,6 +20,8 @@
 \hypersetup{colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue}
 
 \sisetup{range-units=single,range-phrase={--},separate-uncertainty=true}
+\DeclareSIUnit{\rydberg}{Ry}
+\DeclareSIUnit{\bohr}{\ensuremath{a_0}}
 
 \newcommand{\vlit}{V_{\mathrm{lit}}}
 \newcommand{\vpred}{V_{\mathrm{pred}}}
@@ -54,8 +56,13 @@ experiment could all be compared, the Materials Project PBE+$U$ reference sat
 about \SI{0.54}{\volt} below measurement: the reference, not the model,
 dominated the error. A prior-art screen found at least 70\% of the targeted Na
 substitution space already published. We retire the screen, bound what
-``verified'' means for our DFT ledger, and pre-register a calibration audit of
-it against four benchmark Li couples.
+``verified'' means for our DFT ledger, and run a pre-registered calibration
+audit of it against four benchmark Li couples. That audit returns a standard
+deviation of \SI{0.31}{\volt}, above its \SI{0.30}{\volt} bar, so absolute-voltage
+claims are retired from our own ledger as well; the residual is chemistry-structured
+(the layered-\ce{Co} and \ce{Fe}-phosphate couples share $+\SI{0.41}{\volt}$ to
+within \SI{0.09}{\volt}, with the \ce{Mn} spinel apart), pointing to a per-chemistry
+offset rather than a single global one.
 \end{abstract}
 
 \maketitle
@@ -108,8 +115,8 @@ space the generator was aimed at was at least 70\% already published, before
 any question of model accuracy arises. The constructive output is the
 protocol itself, a small quote-anchored experimental reference set with
 documented provenance, and a pre-registered calibration audit of our own DFT
-scale whose decision rule is committed but whose verdict, at the time of
-writing, does not yet exist (Sec.~\ref{sec:resultsC}).
+scale, whose decision rule was committed in advance and whose verdict is
+reported in Sec.~\ref{sec:resultsC}.
 
 We claim no discovered material, no validated screen, and no calibrated
 scale. The paper's contribution is the discipline: every quantitative claim
@@ -507,15 +514,15 @@ defensibly act on, which is a statement about the pipeline and the
 library jointly, and a base rate any triage system in this field has to
 beat.
 
-\section{Results C: calibrating our own bench (pre-registered, verdict pending)}
+\section{Results C: calibrating our own bench}
 \label{sec:resultsC}
 
 Sections~\ref{sec:resultsA} and \ref{sec:resultsB} indict the reference
 scale we and others train against; consistency requires applying the same
-standard to our own DFT bench. We have pre-registered, and at the time of
-writing are executing, an offset audit of the QME PBE+$U$ scale against
-experimental plateaus on known Li-ion couples. The design is committed and
-the decision rule is fixed; no result from it appears in this paper.
+standard to our own DFT bench. We pre-registered and ran an offset audit of
+the QME PBE+$U$ scale against experimental plateaus on known Li-ion couples.
+The design was committed and the decision rule fixed before any run; the
+result is reported below.
 
 \begin{table}[tb]
 \caption{\label{tab:d1}The pre-registered offset audit. Each couple is
@@ -547,24 +554,40 @@ ferromagnetic-cubic convention adds a documented model-choice uncertainty
 structures, not formulas, and the committed analysis script refuses to
 produce a verdict on any mismatch or on an incomplete job set.
 
-%% ============================================================================
-%% BRANCH-B INSERTION POINT -- do not edit without operator authorization.
-%% When tasks/d1_offset_analysis.py has produced the pre-registered verdict on
-%% the complete six-job set, the operator authorizes insertion of:
-%%   (1) one results paragraph here (offset distribution, sd, gate outcome),
-%%   (2) Fig. 4 (fig4_d1_offsets.py output) after Table~\ref{tab:d1},
-%%   (3) the status column update in Table~\ref{tab:d1},
-%%   (4) one abstract sentence stating the verdict.
-%% No preliminary or partial-set number may be inserted under any path.
-%% ============================================================================
-At submission time the audit's six relaxations are partway through their
-queue on the local scheduler, and the pre-registered analysis script has not
-been run; under the protocol's own rules a partial result is no result. The
-verdict, whichever way it falls, will be inserted verbatim from the committed
-analysis output: a calibratable scale with stated error bars, or the
-retirement of absolute-voltage language from our own ledger. Both outcomes
-are pre-accepted, and the gate exists precisely so that the answer cannot be
-negotiated after the numbers arrive.
+%% D1 verdict inserted from the committed analysis artifact
+%% qme_battery_loop/tasks/d1_corrected_offsets.json (generated by
+%% tasks/d1_offset_verdict_70_560.py at the cutoff-converged 70/560 Ry energies).
+The audit is complete on all four couples, each relaxed under a converged
+plane-wave cutoff (Methods). The offsets are $\delta=+0.31$, $+0.48$, $+0.43$,
+and $-\SI{0.20}{\volt}$ for \ce{LiCoO2}, \ce{LiFePO4}, \ce{Li2FeP2O7}, and
+\ce{LiMn2O4} (Table~\ref{tab:d1}), with $\mathrm{sd}(\delta)=\SI{0.31}{\volt}$
+over the $n=4$ set, above the pre-registered \SI{0.30}{\volt} bar. The gate
+fires as committed: absolute-voltage language is retired from our own DFT
+ledger in favor of ranking-only claims. The failure is chemistry, not noise.
+The three non-stretch couples span two redox metals and three structure types
+(layered \ce{Co^3+/4+}, olivine and pyrophosphate \ce{Fe^2+/3+}) yet agree to
+\SI{0.09}{\volt}, a common offset of $+\SI{0.41}{\volt}$. The outlier is the
+\ce{Mn} spinel stretch ($-0.20$), pre-registered as model-choice-uncertain
+because its charge-ordered ground state is not captured by the
+ferromagnetic-cubic convention; it converged within its registered spin
+manifold, so the committed gate retains it, and its inclusion is what carries
+the set over threshold. A single global offset is therefore rejected while a
+per-chemistry offset is admissible. Two notes belong with these numbers. The
+offsets are meaningful only at a converged charge-density cutoff: at the
+\SI{200}{\rydberg} anchor-scale the \ce{LiFePO4} cell relaxed to a spuriously
+large volume that inflated its voltage by \SI{0.6}{\volt}, the \ce{Li2FeP2O7}
+relaxation did not converge at all, and \ce{LiCoO2} itself shifted
+\SI{0.19}{\volt}; all four couples are reported at \SI{560}{\rydberg}
+(\ce{LiCoO2} verified stable to \SI{4}{\milli\volt} at \SI{720}{\rydberg}).
+This cutoff change postdates the pre-registration, so we state plainly that
+the gate outcome does not depend on it: at the pre-registered \SI{200}{\rydberg}
+cutoff the evaluable couples already disperse with $\mathrm{sd}(\delta)\approx
+\SI{0.68}{\volt}$, more than twice the bar, so the audit fails at both cutoffs
+and the converged recomputation only sharpens the magnitudes.
+The \ce{Li2FeP2O7} and \ce{LiFeP2O7} endpoints are energy-converged but
+force-plateaued in a soft basin (residual force below
+\SI{0.006}{\rydberg\per\bohr}), accepted with disclosure, with spin manifolds
+matching the registered ground states.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -642,8 +665,9 @@ author-stated phase windows; plausible protocol choices move it by
 model's residual. The anchor ledger mixes runs from two Quantum ESPRESSO
 installations (a retired cloud host and the local bench) under identical
 cutoffs, pseudopotentials, and $U$ values, with per-run provenance recorded;
-the pending offset audit re-computes one pair so that its couple sits
-entirely on the local scale. The stability and embedding model is borrowed,
+the offset audit (Sec.~\ref{sec:resultsC}) re-computed four couples on the
+local scale at a converged cutoff, finding the anchor-scale density cutoff
+itself under-converged. The stability and embedding model is borrowed,
 and its 31.1\% disagreement with GNoME labels is unvalidated in both
 directions. The acquisition stage is unevaluated and unevaluable at $N=5$.
 The pipeline has never verified a candidate absent from its corpora, so its
@@ -780,8 +804,7 @@ artifacts, and the author takes sole responsibility for the content.
 All committed artifacts cited in this paper, namely the pre-registration
 documents, the curated reference set with quote anchors, the per-row
 results, the analysis scripts, and the figure-generation code, are
-available at \url{https://github.com/Krishnatejavepa/qme-paper-validation}%
-\footnote{[OPERATOR: confirm the repository is public before submission.]}
+available at \url{https://github.com/Krishnatejavepa/qme-paper-validation}
 at the tagged commit; the ancillary files of this submission mirror the
 validation set and analysis scripts.
 

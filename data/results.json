@@ -1,0 +1,390 @@
+[
+  {
+    "id": "licoo2_li",
+    "formula": "LiCoO2",
+    "state": "lithiated",
+    "atoms": 4,
+    "pid": null,
+    "finished_at": null,
+    "converged": true,
+    "bfgs_converged": true,
+    "total_energy_ry": -396.2584933,
+    "final_scf_accuracy_ry": 6.1e-10,
+    "bfgs_cycles": 3,
+    "scf_cycles": 53,
+    "volume_bohr3": null,
+    "mixing_beta": 0.1,
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Co": 3.4
+    },
+    "total_magnetization_bohr": 4.0,
+    "error": null,
+    "note": "RESTORED from session logs (2026-05-22 Session 5). Original entry lost when scheduler restarted with fresh results.json. Energy verified from licoo2_li.out: ! total energy = -396.25849330 Ry. bfgs converged in 4 scf cycles and 3 bfgs steps. WARNING: mag=4.00 Bohr indicates high-spin Co3+ (S=2), not the low-spin ground state; voltage calculated from this pair is from the high-spin manifold.",
+    "spin_state_valid": false,
+    "flagged": "flagged_spin_inconsistent_rerun_required",
+    "flag_reason": "Converged at total_magnetization=4.00 Bohr: high-spin Co3+ S=2. Physical ground state is low-spin Co3+ S=0 (diamagnetic, Goodenough 1964). bfgs_converged=True but SCIENTIFICALLY INVALID. Constrained rerun queued: licoo2_li_constrained.in, tot_magnetization=0.0."
+  },
+  {
+    "id": "licoo2_de",
+    "formula": "LiCoO2",
+    "state": "delithiated",
+    "atoms": 3,
+    "pid": null,
+    "finished_at": null,
+    "converged": false,
+    "total_energy_ry": -381.47635903,
+    "bfgs_converged": false,
+    "bfgs_cycles": null,
+    "scf_cycles": null,
+    "volume_bohr3": 214.1496,
+    "error": null,
+    "spin_state_valid": false,
+    "flagged": "flagged_spin_wrong_manifold_rerun_required",
+    "flag_reason": "SCF not converged (1000 iters); settled at ~2.76-2.82 Bohr: intermediate-spin trap. Physical ground state is low-spin Co4+ S=1/2 (~1 Bohr, Motohashi 2009). bfgs_converged=False, energy unusable. Constrained rerun queued: licoo2_de_constrained.in, tot_magnetization=1.0."
+  },
+  {
+    "id": "licoo2_li",
+    "formula": "LiCoO2",
+    "state": "lithiated",
+    "atoms": 4,
+    "pid": null,
+    "finished_at": null,
+    "converged": false,
+    "total_energy_ry": null,
+    "bfgs_converged": false,
+    "bfgs_cycles": null,
+    "scf_cycles": null,
+    "volume_bohr3": null,
+    "error": "job terminated early (no energy found)"
+  },
+  {
+    "id": "licoo2_de",
+    "formula": "LiCoO2",
+    "state": "delithiated",
+    "atoms": 3,
+    "pid": null,
+    "finished_at": null,
+    "converged": false,
+    "total_energy_ry": null,
+    "bfgs_converged": false,
+    "bfgs_cycles": null,
+    "scf_cycles": null,
+    "volume_bohr3": null,
+    "error": "job terminated early (no energy found)"
+  },
+  {
+    "id": "lifep3o4_de",
+    "formula": "LiFe(PO3)4",
+    "state": "delithiated",
+    "atoms": 34,
+    "pid": null,
+    "finished_at": null,
+    "converged": true,
+    "total_energy_ry": -1771.7417895158,
+    "bfgs_converged": true,
+    "bfgs_cycles": 42,
+    "scf_cycles": 43,
+    "volume_bohr3": 3503.6323,
+    "error": null,
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    },
+    "lda_plus_u_kind": 0,
+    "total_magnetization_bohr": 8.0,
+    "absolute_magnetization_bohr": 11.74,
+    "note": "bfgs converged in 43 scf cycles and 42 bfgs steps. Final enthalpy confirmed = -1771.7417895158 Ry. Total force at convergence = 0.004283 Ry/au (max component < 1e-3, criterion met). Fe HS (8.00 Bohr/cell, 2 Fe x ~4.0 Bohr/Fe). U_Fe = 5.3 eV (Dudarev/lda_plus_u_kind=0). CPU time ~45 hours.",
+    "computed_voltage": 5.687,
+    "voltage_verified_at": null
+  },
+  {
+    "id": "licoo2_li",
+    "formula": "LiCoO2",
+    "state": "lithiated",
+    "atoms": 4,
+    "pid": null,
+    "finished_at": null,
+    "converged": true,
+    "total_energy_ry": -396.3159639361,
+    "bfgs_converged": true,
+    "bfgs_cycles": 4,
+    "scf_cycles": 6,
+    "volume_bohr3": 221.8555,
+    "error": null,
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Co": 3.4
+    },
+    "nspin": 1,
+    "spin_treatment": "non-spin-polarized (nspin=1): Co3+ LS S=0 diamagnetic, exact for ground state",
+    "spin_state_valid": true,
+    "note": "nspin=1 run (licoo2_li_nspin1.in). bfgs converged 4 steps / 6 SCF cycles. Non-spin-polarized is exact for diamagnetic Co3+ LS S=0. Ref: Goodenough 1964; Aydinol et al. PRB 56:1354 (1997).",
+    "computed_voltage": 4.12,
+    "voltage_verified_at": null
+  },
+  {
+    "id": "licoo2_de",
+    "formula": "LiCoO2",
+    "state": "delithiated",
+    "atoms": 3,
+    "pid": null,
+    "finished_at": null,
+    "converged": true,
+    "total_energy_ry": -381.5405896074,
+    "bfgs_converged": true,
+    "bfgs_cycles": 7,
+    "scf_cycles": 8,
+    "volume_bohr3": 216.0586,
+    "error": null,
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Co": 3.4
+    },
+    "nspin": 1,
+    "spin_treatment": "non-spin-polarized (nspin=1): Co4+ paramagnetic, no long-range order",
+    "spin_state_valid": true,
+    "note": "nspin=1 run (licoo2_de_nspin1.in). bfgs converged 7 steps / 8 SCF cycles. nspin=1 for paramagnetic CoO2 avoids spin-manifold trapping; consistent with licoo2_li nspin=1. Ref: Motohashi 2009; Aydinol et al. PRB 56:1354 (1997).",
+    "computed_voltage": 4.12,
+    "voltage_verified_at": null
+  },
+  {
+    "id": "lifep3o4_li",
+    "formula": "LiFe(PO3)4",
+    "state": "lithiated",
+    "atoms": 36,
+    "pid": null,
+    "finished_at": null,
+    "converged": true,
+    "total_energy_ry": -1801.5228685893,
+    "bfgs_converged": true,
+    "bfgs_cycles": 26,
+    "scf_cycles": 28,
+    "volume_bohr3": 3504.8454,
+    "error": null,
+    "computed_voltage": 5.687,
+    "voltage_verified_at": null
+  },
+  {
+    "id": "licoo2_pair",
+    "type": "verified_pair_summary",
+    "formula": "LiCoO2",
+    "n_li": 1,
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Co": 3.4
+    },
+    "spin_notes": "nspin=1 both phases (Co3+ LS S=0 li; Co4+ paramagnetic de)",
+    "E_lithiated_ry": -396.3159639361,
+    "E_delithiated_ry": -381.5405896074,
+    "mu_li_ry": -14.47256273,
+    "voltage_computed": 4.12,
+    "voltage_unit": "V vs Li/Li+",
+    "bfgs_converged_both": true,
+    "status": "verified",
+    "verified_at": null
+  },
+  {
+    "id": "lifep3o4_pair",
+    "type": "verified_pair_summary",
+    "formula": "LiFe(PO3)4",
+    "n_li": 2,
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    },
+    "spin_notes": "HS Fe3+ (10 Bohr li) and HS Fe4+ (8 Bohr de)",
+    "E_lithiated_ry": -1801.5228685893,
+    "E_delithiated_ry": -1771.7417895158,
+    "mu_li_ry": -14.47256273,
+    "voltage_computed": 5.687,
+    "voltage_unit": "V vs Li/Li+",
+    "bfgs_converged_both": true,
+    "status": "verified",
+    "verified_at": null
+  },
+  {
+    "id": "lifep2o7_li",
+    "formula": "LiFeP2O7",
+    "state": "lithiated",
+    "atoms": 44,
+    "pid": null,
+    "finished_at": null,
+    "converged": true,
+    "total_energy_ry": -2656.0186911439,
+    "bfgs_converged": true,
+    "bfgs_cycles": 39,
+    "scf_cycles": 42,
+    "volume_bohr3": 4048.0717,
+    "error": null
+  },
+  {
+    "id": "linip2o7_de",
+    "formula": "LiNiP2O7",
+    "state": "delithiated",
+    "atoms": 40,
+    "finished_at": null,
+    "converged": true,
+    "bfgs_converged": true,
+    "total_energy_ry": -2651.892984931,
+    "bfgs_cycles": 23,
+    "scf_cycles": 24,
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Ni": 6.2
+    },
+    "error": null,
+    "note": "RECOVERED from linip2o7_de.out log: bfgs converged in 24 scf cycles and 23 bfgs steps. Final enthalpy = -2651.8929849310 Ry. Not captured in results.json during the original run; added during a later migration.",
+    "total_magnetization_bohr": 11.26,
+    "absolute_magnetization_bohr": 12.35,
+    "ni_d_moment_uB": 1.64,
+    "ni_d_occupation": 8.25,
+    "spin_provenance": "measured from log 2026-05-31; HS-like, FM-aligned, ligand-hole redox"
+  },
+  {
+    "id": "linip2o7_li",
+    "bfgs_converged": true,
+    "total_energy_ry": -2711.32144894,
+    "final_forces": 0.00433,
+    "bfgs_steps": 19,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Ni": 6.2
+    },
+    "total_magnetization_bohr": 7.58,
+    "absolute_magnetization_bohr": 9.95,
+    "ni_d_moment_uB": 1.69,
+    "ni_d_occupation": 8.14,
+    "spin_provenance": "measured from log 2026-05-31; HS-like, FM-aligned, ligand-hole redox"
+  },
+  {
+    "id": "lifep2o7_de",
+    "bfgs_converged": true,
+    "total_energy_ry": -2596.57757152,
+    "final_forces": 0.004411,
+    "bfgs_steps": 21,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    }
+  },
+  {
+    "id": "li2fep3o5_li",
+    "bfgs_converged": true,
+    "total_energy_ry": -2109.29372603,
+    "final_forces": 0.00392,
+    "bfgs_steps": 30,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    }
+  },
+  {
+    "id": "li2fep3o5_de",
+    "bfgs_converged": true,
+    "total_energy_ry": -2049.75372759,
+    "final_forces": 0.003238,
+    "bfgs_steps": 89,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    },
+    "flagged": "flagged_spin_inconsistent_invalid_for_voltage",
+    "flag_reason": "BFGS-converged 2026-06-02 at total_magnetization=6.00 Bohr (intermediate/low-spin). Lithiated endpoint li2fep3o5_li is 10.00 Bohr (2xFe3+ HS); a spin-consistent delithiated endpoint needs ~8.00 Bohr (2xFe4+ HS). 6.00 Bohr => spin-INCONSISTENT pair => INVALID voltage (CLAUDE.md Critical Lesson #1). DO NOT sync as the 5th verified anchor. Spin-fixed restart li2fep3o5_de_spinfix (tot_magnetization=8.0) launched 2026-06-02; supersedes this energy.",
+    "superseded_by": "li2fep3o5_de_spinfix"
+  },
+  {
+    "id": "d1_lifepo4_li",
+    "bfgs_converged": true,
+    "total_magnetization": 16.0,
+    "total_energy_ry": -2099.6682942432,
+    "final_forces": 0.097634,
+    "bfgs_steps": 14,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    }
+  },
+  {
+    "id": "d1_fepo4_de",
+    "bfgs_converged": true,
+    "total_magnetization": 20.0,
+    "total_energy_ry": -2040.4350967745,
+    "final_forces": 0.039604,
+    "bfgs_steps": 39,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    }
+  },
+  {
+    "id": "d1_li2fep2o7_li",
+    "bfgs_converged": false,
+    "accepted": true,
+    "accepted_reason": "force-plateaued; energy converged sub-mRy (E=-2715.33609451, F=0.043335, step 39, mag=16.0); accepted 2026-06-20; bfgs_converged intentionally left false; disclose in paper Methods v2; ground-state sensitivity check still PENDING before this voltage enters the offset ledger",
+    "total_magnetization": 16.0,
+    "total_energy_ry": -2715.33609451,
+    "final_forces": 0.043335,
+    "bfgs_steps": 39,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    }
+  },
+  {
+    "id": "d1_lifep2o7_li",
+    "bfgs_converged": true,
+    "total_magnetization": 20.0,
+    "total_energy_ry": -2656.1349969426,
+    "final_forces": 0.028828,
+    "bfgs_steps": 38,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Fe": 5.3
+    }
+  },
+  {
+    "id": "d1_limn2o4_li",
+    "bfgs_converged": true,
+    "total_magnetization": 14.0,
+    "total_energy_ry": -1207.2461279876,
+    "final_forces": 0.00195,
+    "bfgs_steps": 2,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Mn": 3.9
+    }
+  },
+  {
+    "id": "d1_lmno2_de",
+    "bfgs_converged": true,
+    "total_magnetization": 12.0,
+    "total_energy_ry": -1177.7332094298,
+    "final_forces": 0.000976,
+    "bfgs_steps": 10,
+    "completed_at": null,
+    "source": "mac_mini_m4_local",
+    "functional": "GGA+U (PBE+U)",
+    "hubbard_u": {
+      "Mn": 3.9
+    }
+  }
+]

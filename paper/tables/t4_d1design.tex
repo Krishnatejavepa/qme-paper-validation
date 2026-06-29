@@ -1,18 +1,18 @@
-%% Hand-written design table: every value is quoted from the committed
-%% pre-registration D1_PREREGISTRATION_2026-06-10.md (CLAIMS_MAP S6.1-S6.2).
-%% Status column is updated only at the operator-authorized Branch-B insertion.
+%% D1 offset audit table. V_exp from the committed pre-registration
+%% (D1_PREREGISTRATION_2026-06-10.md); delta column from the committed verdict
+%% artifact qme_battery_loop/tasks/d1_corrected_offsets.json (70/560 Ry),
+%% rounded to 2 dp (0.314->+0.31, 0.4839->+0.48, 0.4338->+0.43, -0.198->-0.20).
 \begin{ruledtabular}
 \begin{tabular}{lll}
-Couple & $V_{\mathrm{exp}}$ (V) & Status \\
+Couple & $V_{\mathrm{exp}}$ (V) & $\delta$ (V) \\
 \colrule
-\ce{LiCoO2 -> Li_{0.5}CoO2} & 4.0 (3.9--4.1) & done (anchor) \\
-\ce{LiFePO4 -> FePO4} & 3.45~\cite{padhi1997} & running\footnotemark[1] \\
-\ce{Li2FeP2O7 -> LiFeP2O7} & 3.5~\cite{nishimura2010} & running\footnotemark[1] \\
-\ce{LiMn2O4} $\to$ $\lambda$-\ce{MnO2} & 4.05~\cite{thackeray1983,ohzuku1990} & stretch\footnotemark[2] \\
+\ce{LiCoO2 -> Li_{0.5}CoO2} & 4.0 (3.9--4.1) & $+0.31$ \\
+\ce{LiFePO4 -> FePO4} & 3.45~\cite{padhi1997} & $+0.48$ \\
+\ce{Li2FeP2O7 -> LiFeP2O7} & 3.5~\cite{nishimura2010} & $+0.43$\footnotemark[1] \\
+\ce{LiMn2O4} $\to$ $\lambda$-\ce{MnO2} & 4.05~\cite{thackeray1983,ohzuku1990} & $-0.20$\footnotemark[2] \\
 \end{tabular}
 \end{ruledtabular}
-\footnotetext[1]{Queued or running at submission; the verdict is inserted
-verbatim from the committed analysis output once the six-job set is
-complete.}
+\footnotetext[1]{Endpoints energy-converged but force-plateaued in a soft
+basin, accepted with disclosure (Sec.~\ref{sec:resultsC}).}
 \footnotetext[2]{Pre-registered stretch compound with a committed exclusion
-path (Sec.~\ref{sec:resultsC}).}
+path (Sec.~\ref{sec:resultsC}); the outlier carrying the set over the gate.}
