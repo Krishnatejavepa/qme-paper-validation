@@ -136,6 +136,34 @@ assert d1["verdict"] == "FAIL", "D1 verdict is not FAIL, paper text assumes FAIL
 assert "does not yet exist" not in hay, \
     "stale pre-verdict phrasing 'does not yet exist' present; intro contradicts Results C/Table IV"
 
+# Negative assertion guards: phrasings tied to RETIRED claims. Each entry names
+# the claim it guards against; a substring hit anywhere in paper.tex or the
+# tables is a regression and fails the sweep. These only ever get ADDED to;
+# weakening or removing a guard requires operator sign-off.
+RETIRED = [
+    ("LiCoO2 4.120 V anchor framing (under-converged; retired by D1 side-finding)",
+     "matches experiment"),
+    ("same, variant phrasing", "matches the experiment"),
+    ("same, variant phrasing", "matches the measured"),
+    ("same, variant phrasing", "reproduces experiment"),
+    ("same, variant phrasing", "agrees with experiment"),
+    ("computed references called ground truth (thesis: only experiment is)",
+     "ground truth"),
+    ("computed references called ground truth, hyphenated", "ground-truth"),
+    ("novelty claim (prior-art layer never cleared anything)", "novel material"),
+    ("novelty claim, variant", "new material"),
+    ("Na screen fitness claim (retired: F3 verdict, not screening-grade)",
+     "is screening-grade"),
+    ("absolute-voltage accuracy claim (retired by D1 FAIL)",
+     "absolute-voltage accuracy"),
+    ("calibrated-bench claim (retired by D1 FAIL: sd 0.31 V >= 0.30 V bar)",
+     "calibrated bench"),
+    ("calibrated-bench claim, variant", "bench is calibrated"),
+    ("accuracy overclaim", "chemically accurate"),
+]
+hay_lower = hay.lower()
+neg_fails = [(why, s) for why, s in RETIRED if s.lower() in hay_lower]
+
 fails = []
 for label, s in checks:
     variants = {s, s.replace("-", "$-$"), s.replace("-", "{-}")}
@@ -145,4 +173,7 @@ for label, s in checks:
 print(f"consistency: {len(checks) - len(fails)}/{len(checks)} PASS")
 for label, s in fails:
     print(f"  MISS [{label}]: {s!r}")
-sys.exit(1 if fails else 0)
+print(f"negative guards: {len(RETIRED) - len(neg_fails)}/{len(RETIRED)} PASS")
+for why, s in neg_fails:
+    print(f"  RETIRED-CLAIM REGRESSION: {s!r} found in prose ({why})")
+sys.exit(1 if (fails or neg_fails) else 0)

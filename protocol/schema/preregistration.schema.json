@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Krishnatejavepa/qme-paper-validation/blob/main/protocol/schema/preregistration.schema.json",
+  "title": "QME Validation Protocol pre-registration",
+  "description": "Machine-readable pre-registration for a QME validation study. A conforming document fixes the claim, the primary metric, the decision thresholds, the exclusion policy, and the negative assertions BEFORE any result exists. The spec is protocol/QME_VALIDATION_PROTOCOL_v1.0.md; where this schema and the spec disagree, the spec wins and the schema has a bug.",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "prereg_id",
+    "title",
+    "registered_utc",
+    "registration_evidence",
+    "claim",
+    "primary_metric",
+    "decision_rules",
+    "exclusion_policy",
+    "negative_assertions",
+    "method",
+    "datapoints",
+    "artifacts",
+    "operator_gates"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_version": {
+      "description": "Version of the QME Validation Protocol this pre-registration conforms to.",
+      "const": "1.0.0"
+    },
+    "prereg_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{3,63}$",
+      "description": "Stable slug naming this study, e.g. 'd1_offset_audit_2026-06-10'."
+    },
+    "title": { "type": "string", "minLength": 8 },
+    "registered_utc": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the pre-registration was committed, before any result existed."
+    },
+    "registration_evidence": {
+      "type": "object",
+      "description": "Proof that registration preceded results. The canonical registration is the committed document; this JSON is its machine-readable form.",
+      "required": ["canonical_document", "committed_before_results"],
+      "additionalProperties": false,
+      "properties": {
+        "canonical_document": {
+          "type": "string",
+          "description": "Repo-relative path of the human-readable pre-registration of record."
+        },
+        "git_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,40}$",
+          "description": "Commit that introduced the canonical document."
+        },
+        "committed_before_results": { "const": true },
+        "retrofit_note": {
+          "type": "string",
+          "description": "Required when this JSON was transcribed from the canonical document after registration. States the transcription date and that the canonical document remains authoritative."
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "required": ["statement", "claim_type", "claimant"],
+      "additionalProperties": false,
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 20,
+          "description": "The single falsifiable claim under test, stated so that FAIL is a publishable outcome."
+        },
+        "claim_type": {
+          "enum": ["calibration", "accuracy", "ranking", "reproduction", "generalization", "other"]
+        },
+        "claimant": {
+          "enum": ["self", "external"],
+          "description": "'self' for QME auditing its own stack; 'external' for a third-party claim submitted for validation."
+        },
+        "scope": { "type": "string" }
+      }
+    },
+    "primary_metric": {
+      "type": "object",
+      "required": ["name", "definition", "units"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "definition": {
+          "type": "string",
+          "description": "Exact estimator, including what is averaged over and any correction applied."
+        },
+        "units": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "decision_rules": {
+      "type": "array",
+      "minItems": 2,
+      "description": "The complete pre-committed mapping from metric outcomes to verdicts. Must include at least one PASS rule and one FAIL rule. GRAY_ZONE rules must state how the zone is handled (operator decision, documented at decision time).",
+      "items": {
+        "type": "object",
+        "required": ["verdict", "condition"],
+        "additionalProperties": false,
+        "properties": {
+          "verdict": { "$ref": "#/$defs/verdict_state" },
+          "condition": {
+            "type": "string",
+            "description": "Human-readable statement of the rule, e.g. 'sd(delta) < 0.15 V across offset points'."
+          },
+          "threshold": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "operator": { "enum": ["<", "<=", ">", ">=", "in_range"] },
+              "value": { "type": ["number", "array"] },
+              "units": { "type": "string" }
+            }
+          },
+          "handling": { "type": "string" }
+        }
+      }
+    },
+    "exclusion_policy": {
+      "type": "object",
+      "description": "How datapoints may be dropped. Exclusions are legitimate ONLY through rules written here before results existed, every exclusion is logged, and every exclusion triggers a sensitivity analysis showing the verdict with and without the excluded point.",
+      "required": ["rules", "sensitivity_analysis_required", "silent_exclusion_forbidden"],
+      "additionalProperties": false,
+      "properties": {
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["condition", "disposition"],
+            "additionalProperties": false,
+            "properties": {
+              "condition": { "type": "string" },
+              "disposition": { "$ref": "#/$defs/datapoint_status" },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "sensitivity_analysis_required": { "const": true },
+        "silent_exclusion_forbidden": { "const": true }
+      }
+    },
+    "negative_assertions": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Claims that must NOT be made, regardless of outcome. Each entry names the forbidden claim and, where one exists, the mechanical guard that enforces it.",
+      "items": {
+        "type": "object",
+        "required": ["assertion"],
+        "additionalProperties": false,
+        "properties": {
+          "assertion": { "type": "string" },
+          "guard": {
+            "type": "string",
+            "description": "Script or check that mechanically enforces the assertion, e.g. 'scripts/consistency_check.py'."
+          }
+        }
+      }
+    },
+    "anchors": {
+      "type": "array",
+      "description": "Experimental reference points the computation is judged against. Sources are experiment-anchored literature values, never computed references.",
+      "items": {
+        "type": "object",
+        "required": ["couple", "v_exp_volts", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "couple": { "type": "string" },
+          "v_exp_volts": { "type": "number" },
+          "source": { "type": "string" },
+          "tier": {
+            "enum": ["A", "B", "C"],
+            "description": "Anchor confidence: A = clean plateau, B = usable with caveats, C = flagged."
+          },
+          "caveats": { "type": "string" }
+        }
+      }
+    },
+    "method": {
+      "type": "object",
+      "description": "Everything fixed about how the numbers are produced. Enough detail that a deviation is detectable.",
+      "required": ["code", "code_version", "spin_states"],
+      "properties": {
+        "code": { "type": "string" },
+        "code_version": { "type": "string" },
+        "functional": { "type": "string" },
+        "hubbard_u": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["species", "u_ev", "provenance"],
+            "additionalProperties": false,
+            "properties": {
+              "species": { "type": "string" },
+              "u_ev": { "type": "number" },
+              "provenance": { "enum": ["literature_standard", "empirical_fit"] }
+            }
+          }
+        },
+        "cutoffs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ecutwfc_ry": { "type": "number" },
+            "ecutrho_ry": { "type": "number" }
+          }
+        },
+        "spin_states": {
+          "type": "object",
+          "required": ["source_policy", "per_structure"],
+          "additionalProperties": false,
+          "properties": {
+            "source_policy": {
+              "const": "literature_physics_only",
+              "description": "Spin manifolds come from literature physics (established oxidation states, spin states, and computational conventions), never tuned to improve agreement."
+            },
+            "convention": { "type": "string" },
+            "per_structure": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["structure", "registered_manifold", "expected_total_magnetization_bohr", "literature_basis"],
+                "additionalProperties": false,
+                "properties": {
+                  "structure": { "type": "string" },
+                  "cell": { "type": "string" },
+                  "registered_manifold": { "type": "string" },
+                  "expected_total_magnetization_bohr": { "type": "number" },
+                  "literature_basis": { "type": "string" },
+                  "caveats": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "mu_reference": { "type": "object" },
+        "additional": { "type": "object" }
+      }
+    },
+    "datapoints": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The units of evidence the verdict is computed over, with their current status. Status moves forward only (pending -> banked -> included or excluded_*); an excluded point keeps its exclusion rule reference.",
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "description": { "type": "string" },
+          "status": { "$ref": "#/$defs/datapoint_status" },
+          "exclusion_rule": {
+            "type": "string",
+            "description": "Required when status is excluded_*: the exclusion_policy rule invoked."
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "post_registration_addenda": {
+      "type": "object",
+      "description": "Everything that happened AFTER registration, kept separate from the registered core so the two cannot be confused. Deviations are disclosed here, never silently absorbed.",
+      "additionalProperties": false,
+      "properties": {
+        "deviations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date", "description", "justification"],
+            "additionalProperties": false,
+            "properties": {
+              "date": { "type": "string", "format": "date" },
+              "description": { "type": "string" },
+              "justification": { "type": "string" },
+              "verdict_invariance": {
+                "type": "string",
+                "description": "Evidence that the verdict does not depend on the deviation, when demonstrable."
+              }
+            }
+          }
+        },
+        "outcome_reference": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "verdict": { "$ref": "#/$defs/verdict_state" },
+            "verdict_artifact": { "type": "string" },
+            "date": { "type": "string", "format": "date" },
+            "summary": { "type": "string" }
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["verdict_artifact", "generator"],
+      "additionalProperties": false,
+      "properties": {
+        "verdict_artifact": {
+          "type": "string",
+          "description": "Repo-relative path of the structured verdict JSON this study produces."
+        },
+        "generator": {
+          "type": "string",
+          "description": "Script that regenerates the verdict artifact from committed inputs."
+        },
+        "provenance_manifest": {
+          "type": "string",
+          "description": "Path of the provenance manifest (file hashes, environment, prereg reference) once generated."
+        }
+      }
+    },
+    "operator_gates": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Human approval points. At minimum: no compute before slate approval, no ledger write before verdict review.",
+      "items": {
+        "type": "object",
+        "required": ["gate", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "gate": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "verdict_state": {
+      "enum": ["PASS", "FAIL", "GRAY_ZONE", "excluded_reproduction_inconclusive"],
+      "description": "PASS and FAIL per the pre-committed decision rules; GRAY_ZONE requires the pre-registered handling (operator decision, documented); excluded_reproduction_inconclusive is the verdict when reproduction of the underlying result is inconclusive and no PASS or FAIL can honestly be issued."
+    },
+    "datapoint_status": {
+      "enum": [
+        "pending",
+        "banked",
+        "included",
+        "excluded_reproduction_inconclusive",
+        "excluded_anchor_unclean",
+        "excluded_spin_manifold",
+        "excluded_other"
+      ],
+      "description": "pending = not yet computed; banked = result exists but no verdict computed yet; included = counted in the verdict statistic; excluded_* = dropped under a pre-committed exclusion rule (logged, sensitivity analysis mandatory)."
+    }
+  }
+}

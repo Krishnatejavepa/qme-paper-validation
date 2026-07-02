@@ -1,0 +1,82 @@
+{
+  "protocol_version": "1.0.0",
+  "prereg_id": "example_external_claim_2026",
+  "title": "External ML voltage claim submitted for validation",
+  "registered_utc": "2026-07-01",
+  "registration_evidence": {
+    "canonical_document": "protocol/instances/prereg_example_external_claim_2026.json",
+    "committed_before_results": true
+  },
+  "claim": {
+    "statement": "Model X ranks candidate cathode A above candidate B for average Li intercalation voltage, checkable against the QME bench on one PBE+U scale.",
+    "claim_type": "ranking",
+    "claimant": "external"
+  },
+  "primary_metric": {
+    "name": "rank_agreement",
+    "definition": "Sign of V(A) - V(B) on the QME bench vs the claimed sign.",
+    "units": "boolean"
+  },
+  "decision_rules": [
+    {
+      "verdict": "PASS",
+      "condition": "bench voltage ordering matches the claimed ordering"
+    },
+    {
+      "verdict": "FAIL",
+      "condition": "bench voltage ordering contradicts the claimed ordering"
+    }
+  ],
+  "exclusion_policy": {
+    "rules": [
+      {
+        "condition": "either endpoint converges off its registered spin manifold",
+        "disposition": "excluded_spin_manifold"
+      }
+    ],
+    "sensitivity_analysis_required": true,
+    "silent_exclusion_forbidden": true
+  },
+  "negative_assertions": [
+    {
+      "assertion": "No absolute-voltage claim follows from a PASS; ranking only."
+    }
+  ],
+  "method": {
+    "code": "Quantum ESPRESSO pw.x, local_macmini backend",
+    "code_version": "7.3.1",
+    "spin_states": {
+      "source_policy": "literature_physics_only",
+      "per_structure": [
+        {
+          "structure": "candidate A lithiated",
+          "registered_manifold": "4x Fe2+ HS FM",
+          "expected_total_magnetization_bohr": 16.0,
+          "literature_basis": "Fe2+ high-spin d6, olivine convention."
+        }
+      ]
+    }
+  },
+  "datapoints": [
+    {
+      "id": "couple_A",
+      "description": "candidate A couple",
+      "status": "pending"
+    },
+    {
+      "id": "couple_B",
+      "description": "candidate B couple",
+      "status": "pending"
+    }
+  ],
+  "artifacts": {
+    "verdict_artifact": "TBD at verdict time",
+    "generator": "TBD at verdict time"
+  },
+  "operator_gates": [
+    {
+      "gate": "compute_approval",
+      "description": "operator approves before any DFT"
+    }
+  ]
+}

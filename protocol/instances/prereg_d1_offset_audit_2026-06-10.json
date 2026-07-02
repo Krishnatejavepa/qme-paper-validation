@@ -1,0 +1,259 @@
+{
+  "protocol_version": "1.0.0",
+  "prereg_id": "d1_offset_audit_2026-06-10",
+  "title": "D1 offset audit: is the QME local PBE+U bench calibratable against experiment?",
+  "registered_utc": "2026-06-10",
+  "registration_evidence": {
+    "canonical_document": "prereg/D1_PREREGISTRATION_2026-06-10.md",
+    "committed_before_results": true,
+    "retrofit_note": "This JSON was transcribed from the canonical markdown on 2026-07-01 as the machine-readable form required by QME Validation Protocol v1.0. The markdown, committed 2026-06-10 before any D1 result existed, remains the document of record. Nothing here alters the registered content; post-registration events are confined to post_registration_addenda."
+  },
+  "claim": {
+    "statement": "The offset delta = V_QME(PBE+U) - V_experiment on known Li-ion couples is calibratable: a single additive offset with sd(delta) < 0.15 V describes the QME local bench, so absolute-voltage language may survive with a calibrated offset and error bars.",
+    "claim_type": "calibration",
+    "claimant": "self",
+    "scope": "QME local PBE+U bench (QE 7.3.1, Mac Mini M4), Li-ion intercalation couples, gate G1 for the discovery loop."
+  },
+  "primary_metric": {
+    "name": "sd_delta",
+    "definition": "Standard deviation of delta = V_QME - V_exp across the evaluated offset points (couples).",
+    "units": "V"
+  },
+  "decision_rules": [
+    {
+      "verdict": "PASS",
+      "condition": "sd(delta) < 0.15 V across the offset points",
+      "threshold": {
+        "operator": "<",
+        "value": 0.15,
+        "units": "V"
+      },
+      "handling": "Scale is calibratable per chemistry family; publish voltages with the calibrated offset and error bars."
+    },
+    {
+      "verdict": "FAIL",
+      "condition": "sd(delta) >= 0.30 V",
+      "threshold": {
+        "operator": ">=",
+        "value": 0.3,
+        "units": "V"
+      },
+      "handling": "Absolute-voltage claims are retired everywhere (ranking-only language); ab-initio U (hp.x, D9) and beyond-PBE+U methods become the path."
+    },
+    {
+      "verdict": "GRAY_ZONE",
+      "condition": "0.15 V <= sd(delta) < 0.30 V",
+      "threshold": {
+        "operator": "in_range",
+        "value": [
+          0.15,
+          0.3
+        ],
+        "units": "V"
+      },
+      "handling": "Operator decision, documented at sync time."
+    }
+  ],
+  "exclusion_policy": {
+    "rules": [
+      {
+        "condition": "LiMn2O4 / lambda-MnO2 is pre-registered as STRETCH-COMPOUND: if either Mn half fails to converge in the registered spin manifold, the verdict is issued on the n=3 core alone and the Mn point is reported as excluded.",
+        "disposition": "excluded_spin_manifold",
+        "notes": "This exclusion path was pre-committed in the registration, not decided after results."
+      },
+      {
+        "condition": "A pair half that converges outside its registered manifold (e.g. spin-sloshed non-integer magnetization) excludes that offset point from the gate statistic.",
+        "disposition": "excluded_spin_manifold"
+      }
+    ],
+    "sensitivity_analysis_required": true,
+    "silent_exclusion_forbidden": true
+  },
+  "negative_assertions": [
+    {
+      "assertion": "On FAIL, no absolute-voltage claim survives anywhere in QME; voltages are reported in ranking-only language.",
+      "guard": "scripts/consistency_check.py"
+    },
+    {
+      "assertion": "Computed voltages are never called ground truth; only experiment is.",
+      "guard": ""
+    }
+  ],
+  "anchors": [
+    {
+      "couple": "LiCoO2 -> Li0.5CoO2",
+      "v_exp_volts": 4.0,
+      "source": "Standard plateau (3.9-4.1 V window); existing QME benchmark.",
+      "tier": "A",
+      "caveats": "Range-matched rather than a single sharp plateau."
+    },
+    {
+      "couple": "LiFePO4 -> FePO4",
+      "v_exp_volts": 3.45,
+      "source": "Padhi, Nanjundaswamy & Goodenough, J. Electrochem. Soc. 144, 1188 (1997).",
+      "tier": "A"
+    },
+    {
+      "couple": "Li2FeP2O7 -> LiFeP2O7",
+      "v_exp_volts": 3.5,
+      "source": "Nishimura, Nakamura, Natsui & Yamada, JACS 132, 13596 (2010).",
+      "tier": "A"
+    },
+    {
+      "couple": "LiMn2O4 -> lambda-MnO2",
+      "v_exp_volts": 4.05,
+      "source": "Thackeray et al., Mater. Res. Bull. 18, 461 (1983); Ohzuku et al., JES 137, 769 (1990). Average of the ~3.95 and ~4.15 V plateaus.",
+      "tier": "A",
+      "caveats": "Stretch compound; true low-T ground state is charge-ordered/AFM orthorhombic, FM cubic is the registered computational convention."
+    }
+  ],
+  "method": {
+    "code": "Quantum ESPRESSO pw.x, local_macmini backend",
+    "code_version": "7.3.1",
+    "functional": "PBE+U (Dudarev, HUBBARD {ortho-atomic} card after K_POINTS)",
+    "hubbard_u": [
+      {
+        "species": "Fe-3d",
+        "u_ev": 5.3,
+        "provenance": "literature_standard"
+      },
+      {
+        "species": "Mn-3d",
+        "u_ev": 3.9,
+        "provenance": "literature_standard"
+      },
+      {
+        "species": "Co-3d",
+        "u_ev": 3.4,
+        "provenance": "literature_standard"
+      }
+    ],
+    "cutoffs": {
+      "ecutwfc_ry": 50,
+      "ecutrho_ry": 200
+    },
+    "spin_states": {
+      "source_policy": "literature_physics_only",
+      "convention": "FM alignment for all runs (MP / Wang-2006 GGA+U voltage convention), free vc-relax (ibrav=0), Jahn-Teller distortion allowed wherever the electronics want it.",
+      "per_structure": [
+        {
+          "structure": "d1_lifepo4_li (LiFePO4 olivine, conventional, nat 28)",
+          "cell": "MP mp-19017, 4 f.u.",
+          "registered_manifold": "4x Fe2+ HS (d6, 4 uB) FM",
+          "expected_total_magnetization_bohr": 16.0,
+          "literature_basis": "Fe2+ high-spin in olivine phosphate; Padhi 1997 couple assignment."
+        },
+        {
+          "structure": "d1_fepo4_de (FePO4 heterosite, nat 24)",
+          "cell": "Topotactic Li removal from the same cell",
+          "registered_manifold": "4x Fe3+ HS (d5, 5 uB) FM",
+          "expected_total_magnetization_bohr": 20.0,
+          "literature_basis": "Fe3+ high-spin d5 in heterosite."
+        },
+        {
+          "structure": "d1_li2fep2o7_li (Li2FeP2O7, nat 48)",
+          "cell": "MP mp-779056, 4 f.u.",
+          "registered_manifold": "4x Fe2+ HS FM",
+          "expected_total_magnetization_bohr": 16.0,
+          "literature_basis": "Fe2+ high-spin; Nishimura 2010 couple assignment."
+        },
+        {
+          "structure": "d1_lifep2o7_li (LiFeP2O7, nat 44)",
+          "cell": "QME canonical 4-f.u. cell, re-run on QE 7.3.1",
+          "registered_manifold": "4x Fe3+ HS FM",
+          "expected_total_magnetization_bohr": 20.0,
+          "literature_basis": "Fe3+ high-spin d5."
+        },
+        {
+          "structure": "d1_limn2o4_li (LiMn2O4 spinel, primitive, nat 14)",
+          "cell": "MP mp-1272804, 2 f.u.",
+          "registered_manifold": "FM, mixed-valence 2x Mn3+ HS (d4, 4 uB) + 2x Mn4+ (d3, 3 uB); JT allowance via free vc-relax",
+          "expected_total_magnetization_bohr": 14.0,
+          "literature_basis": "Mixed-valence spinel; Rodriguez-Carvajal et al., PRL 81, 4660 (1998) documents the true charge-ordered low-T state; FM cubic is the registered room-temperature convention (Wang & Ceder GGA+U).",
+          "caveats": "Model-choice uncertainty of order tens of meV/f.u. documented in the registration."
+        },
+        {
+          "structure": "d1_lmno2_de (lambda-MnO2, nat 12)",
+          "cell": "Topotactic Li removal from the same cell",
+          "registered_manifold": "4x Mn4+ (d3) FM",
+          "expected_total_magnetization_bohr": 12.0,
+          "literature_basis": "Mn4+ d3 in lambda-MnO2 spinel framework."
+        }
+      ]
+    },
+    "mu_reference": {
+      "mu_li_ry": -14.4725646547,
+      "source": "In-DB BCC Li reference run (QE 7.3.1)."
+    },
+    "additional": {
+      "smearing": "gaussian 0.01 Ry",
+      "mixing": "local-TF",
+      "pseudopotentials": [
+        "li_pbe_v1.4.uspp.F.UPF",
+        "Fe.pbe-spn-kjpaw_psl.0.2.1.UPF",
+        "P.pbe-n-rrkjus_psl.1.0.0.UPF",
+        "O.pbe-n-kjpaw_psl.0.1.UPF",
+        "mn_pbe_v1.5.uspp.F.UPF"
+      ],
+      "energy_parsing": "Final enthalpy after 'bfgs converged', never the post-convergence '! total energy'.",
+      "voltage_formulas": "Pair A (same cell, dn=4); Pair B (different cells, both 4 f.u., dn=1 per f.u., nat hard-asserted 48 and 44); Pair C (same cell, dn=2). Ry->eV = 13.605693122994."
+    }
+  },
+  "datapoints": [
+    {
+      "id": "LiCoO2",
+      "description": "Existing anchor couple, offset point 1.",
+      "status": "included"
+    },
+    {
+      "id": "pairA_LiFePO4",
+      "description": "LiFePO4/FePO4 olivine couple.",
+      "status": "included"
+    },
+    {
+      "id": "pairB_Li2FeP2O7",
+      "description": "Li2FeP2O7/LiFeP2O7 pyrophosphate couple. Held on provenance gate until the job-3 ground-state sensitivity check cleared.",
+      "status": "included"
+    },
+    {
+      "id": "pairC_LiMn2O4",
+      "description": "LiMn2O4/lambda-MnO2 spinel couple, pre-registered stretch compound.",
+      "status": "included"
+    }
+  ],
+  "post_registration_addenda": {
+    "deviations": [
+      {
+        "date": "2026-06-28",
+        "description": "Cutoffs raised from the registered 50/200 Ry to 70/560 Ry for all six endpoints.",
+        "justification": "200 Ry was numerically unconverged for phosphate vc-relax cell stress: spurious ~+100 kbar Pulay pressure inflated the LiFePO4 cell ~25% and corrupted the voltage by ~0.6 V; Li2FeP2O7 failed to converge; LiCoO2 shifted ~0.19 V. LiCoO2 stability check at 90/720 Ry: 4 mV drift.",
+        "verdict_invariance": "FAIL at both cutoffs: sd = 0.68 V at the registered 200 Ry (pair B provenance-held there), sd = 0.31 V at 70/560 Ry. Both exceed the 0.30 V bar."
+      }
+    ],
+    "outcome_reference": {
+      "verdict": "FAIL",
+      "verdict_artifact": "data/d1_corrected_offsets.json",
+      "date": "2026-06-28",
+      "summary": "sd(delta) = 0.31 V over n=4 (LiCoO2 +0.31, LiFePO4 +0.48, Li2FeP2O7 +0.43, LiMn2O4 -0.20). Single additive offset does not calibrate the bench; absolute-voltage claims retired. Sensitivity: the n=3 core (Co layered + 2 Fe-phosphate) clusters at +0.41 V (sd 0.09), so a per-chemistry offset is admissible; the Mn spinel is the lone outlier. Side-finding: the LiCoO2 4.120 V anchor was under-converged at ecutrho=200; converged value 4.31 V."
+    }
+  },
+  "artifacts": {
+    "verdict_artifact": "data/d1_corrected_offsets.json",
+    "generator": "scripts/d1_offset_verdict_70_560.py",
+    "provenance_manifest": "data/d1_corrected_offsets.json.manifest.json"
+  },
+  "operator_gates": [
+    {
+      "gate": "sync",
+      "description": "Results land in runpod_data/results.json; human-gated sync to qme.db."
+    },
+    {
+      "gate": "provenance_hold",
+      "description": "Pair B blocked from the offset ledger until the operator cleared the job-3 ground-state sensitivity check (is_ledger_admissible)."
+    },
+    {
+      "gate": "verdict_review",
+      "description": "Verdict integrated into paper v2 Results C only after operator review; qme.db unchanged (audit overlay, not new ledger rows)."
+    }
+  ]
+}

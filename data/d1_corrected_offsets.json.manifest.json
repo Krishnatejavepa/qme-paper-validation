@@ -1,0 +1,29 @@
+{
+  "manifest_for": "data/d1_corrected_offsets.json",
+  "generator": "scripts/d1_offset_verdict_70_560.py",
+  "regeneration_command": "QME_ROOT=$PWD python scripts/d1_offset_verdict_70_560.py",
+  "sha256": {
+    "data/d1_corrected_offsets.json": "712a80ef74eafedb52b09e5e1f4c5d521a6117863391c99a7515dcf0cd9062cc",
+    "data/results.json": "072ef9769d681b9ced32823b03edb01b9d85320ec72583b061cbaefe6b1e2c93",
+    "prereg/D1_PREREGISTRATION_2026-06-10.md": "8204b61eb7d1f23962020a5165d78ba21ce921cc106aa166e4020f4610002308",
+    "scripts/d1_audit.py": "b1ab220fa8470be249cb9937a598097345d344b2e8b5e3936ab48fb826d2c584",
+    "scripts/d1_offset_verdict_70_560.py": "573ea3a08d709a4da9bd34a5de682721af65ed035961007927073649d9d1a26b"
+  },
+  "preregistration": {
+    "prereg_id": "d1_offset_audit_2026-06-10",
+    "canonical_document": "prereg/D1_PREREGISTRATION_2026-06-10.md",
+    "note": "Machine-readable instance ships with QME Validation Protocol v1.0 (protocol/instances/prereg_d1_offset_audit_2026-06-10.json)."
+  },
+  "declared_environment": {
+    "dft_code": "Quantum ESPRESSO 7.3.1 (pw.x, local Mac Mini M4)",
+    "conda_env": "qme_gauntlet",
+    "hubbard": "HUBBARD {ortho-atomic}, U Fe-3d 5.30 / Mn-3d 3.90 / Co-3d 3.40 eV",
+    "cutoffs": "ecutwfc 70 Ry / ecutrho 560 Ry (deviation from the registered 50/200 Ry, disclosed in the artifact)",
+    "mace_oracle": "MACE Oracle v3.0 (MACE-MP-0 backbone); NOT used by this artifact, declared for stack completeness"
+  },
+  "captured_environment": {
+    "python": "3.13.13",
+    "platform": "macOS-26.5-arm64-arm-64bit-Mach-O"
+  },
+  "generated_utc": "2026-06-01T00:00:00Z"
+}
